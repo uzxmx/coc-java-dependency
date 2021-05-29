@@ -26,6 +26,6 @@ jobs:
       - name: Publish to npm registry
         if: ${{ github.event.release }}
         shell: bash
-        run: npm publish --tag "${GITHUB_REF#refs/*/}"
+        run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
