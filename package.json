@@ -26,6 +26,12 @@
   ],
   "license": "MIT",
   "main": "lib/index.js",
+  "files": [
+    "/README.md",
+    "/lib",
+    "/autoload",
+    "/plugin"
+  ],
   "contributes": {
     "javaExtensions": [
       "./server/com.microsoft.jdtls.ext.core.jar"
