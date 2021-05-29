@@ -1,0 +1,55 @@
+{
+  "name": "coc-java-dependency",
+  "description": "An extension to provide additional Java project explorer features for coc-java",
+  "version": "0.1.0",
+  "publisher": "uzxmx",
+  "keywords": [
+    "coc.nvim",
+    "java",
+    "project",
+    "explorer"
+  ],
+  "engines": {
+    "coc": ">=0.0.79"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/uzxmx/coc-java-dependency.git"
+  },
+  "homepage": "https://github.com/uzxm/coc-java-dependency/blob/master/README.md",
+  "activationEvents": [
+    "onLanguage:java",
+    "workspaceContains:pom.xml",
+    "workspaceContains:build.gradle",
+    "workspaceContains:build.gradle.kts",
+    "workspaceContains:.classpath"
+  ],
+  "license": "MIT",
+  "main": "lib/index.js",
+  "contributes": {
+    "javaExtensions": [
+      "./server/com.microsoft.jdtls.ext.core.jar"
+    ]
+  },
+  "scripts": {
+    "build": "webpack",
+    "watch": "webpack --mode development --watch --info-verbosity verbose"
+  },
+  "devDependencies": {
+    "@types/got": "^9.4.4",
+    "@types/mocha": "^8.2.1",
+    "@types/node": "^8.10.66",
+    "@types/tunnel": "^0.0.0",
+    "coc.nvim": "^0.0.79-next.11",
+    "compressing": "^1.4.0",
+    "got": "^9.6.0",
+    "mocha": "^8.3.1",
+    "ts-loader": "^5.4.5",
+    "tslint": "^5.20.1",
+    "tunnel": "^0.0.6",
+    "typescript": "^3.9.9",
+    "webpack": "^4.46.0",
+    "webpack-cli": "^3.3.12"
+  },
+  "dependencies": {}
+}
