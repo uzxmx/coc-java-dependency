@@ -1,4 +1,4 @@
-import { ExtensionContext, commands, extensions, window } from "coc.nvim"
+import { ExtensionContext, commands, extensions, window, workspace } from "coc.nvim"
 import * as path from 'path'
 import * as fs from 'fs'
 
@@ -8,15 +8,10 @@ const jarVersion = '0.18.3'
 let jarLinkPath: string
 
 export async function activate(context: ExtensionContext): Promise<void> {
-    await activateExtension("", context)
+  // Prepend this extension to vim runtime path, and load vimscripts under plugin folder.
+  workspace.nvim.command(`set runtimepath^=${context.extensionPath}`)
+  workspace.nvim.command('runtime! plugin/*.vim')
 
-    jarLinkPath = path.join(context.extensionPath, 'server', 'com.microsoft.jdtls.ext.core.jar')
-    if (!fs.existsSync(jarLinkPath)) {
-      download(jarVersion)
-    }
-}
-
-async function activateExtension(_operationId: string, context: ExtensionContext): Promise<void> {
   context.subscriptions.push(commands.registerCommand('java.dependency.downloadJdtlsExtension', version => {
     if (!version) {
       version = jarVersion
@@ -29,6 +24,11 @@ async function activateExtension(_operationId: string, context: ExtensionContext
     let extensionAPI = extensions.getExtensionApi('coc-java')
     return extensionAPI.status
   }, null, true))
+
+  jarLinkPath = path.join(context.extensionPath, 'server', 'com.microsoft.jdtls.ext.core.jar')
+  if (!fs.existsSync(jarLinkPath)) {
+    download(jarVersion)
+  }
 }
 
 function download(version: string) {
