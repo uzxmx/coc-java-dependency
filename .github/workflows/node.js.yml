@@ -22,9 +22,7 @@ jobs:
         run: yarn --frozen-lockfile
       - name: Run build
         run: yarn build
-      - name: Publish to npm registry
+      - uses: JS-DevTools/npm-publish@v1
         if: ${{ github.event.release }}
-        shell: bash
-        run: npm publish --access public
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        with:
+          token: ${{ secrets.NPM_TOKEN }}
