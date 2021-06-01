@@ -52,10 +52,10 @@ To close it, execute:
 :JavaDependencyClose
 ```
 
-To focus on current file in the explorer, execute:
+To find current file in the explorer, execute:
 
 ```
-:JavaDependencyFocus
+:JavaDependencyFind
 ```
 
 ## Available commands
