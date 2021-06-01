@@ -7,6 +7,8 @@ loaded by [coc-java](https://github.com/neoclide/coc-java). This extension uses
 the jar from
 [vscode-java-dependency](https://github.com/Microsoft/vscode-java-dependency).
 
+![demo](https://github.com/uzxmx/assets/blob/master/coc-java-dependency.gif)
+
 ## Prerequisites
 
 You must have [coc-java](https://github.com/neoclide/coc-java) installed first
