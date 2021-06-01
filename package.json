@@ -1,7 +1,7 @@
 {
   "name": "coc-java-dependency",
   "description": "An extension to provide additional Java project explorer features for coc-java",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "publisher": "uzxmx",
   "keywords": [
     "coc.nvim",
