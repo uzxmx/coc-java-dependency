@@ -1,4 +1,4 @@
-import { ExtensionContext, commands, extensions, window, workspace } from "coc.nvim"
+import { ExtensionContext, commands, extensions, services, window, workspace } from "coc.nvim"
 import * as path from 'path'
 import * as fs from 'fs'
 
@@ -20,9 +20,7 @@ export async function activate(context: ExtensionContext): Promise<void> {
   }))
 
   context.subscriptions.push(commands.registerCommand('java.dependency.getJdtlsStatus', () => {
-    // @ts-ignore
-    let extensionAPI = extensions.getExtensionApi('coc-java')
-    return extensionAPI.status
+    return services.getService('java').state
   }, null, true))
 
   jarLinkPath = path.join(context.extensionPath, 'server', 'com.microsoft.jdtls.ext.core.jar')

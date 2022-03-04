@@ -1,9 +1,9 @@
 let s:jdtls_status = ''
 
 function s:check_jdtls_status()
-  if s:jdtls_status != 'Started'
+  if s:jdtls_status != 3
     let s:jdtls_status = CocAction('runCommand', 'java.dependency.getJdtlsStatus')
-    if s:jdtls_status != 'Started'
+    if s:jdtls_status != 3
       echomsg 'Java language server has not been started, please check coc-java.'
       return 0
     endif
@@ -100,7 +100,7 @@ endfunction
 function s:getRootNode(tree)
   let rootNode = widgets#tree#inter_node#newRoot('Java Dependency')
   let childNodes = []
-  let res = CocAction('runCommand', 'java.getPackageData', { 'kind': s:NodeKindProject, 'projectUri': s:getProjectUri() })
+  let res = s:getPackageData({ 'kind': s:NodeKindProject, 'projectUri': s:getProjectUri() })
   for i in res
     if i.entryKind == 5
       call add(childNodes, widgets#tree#inter_node#new(i.name, i))
@@ -112,15 +112,19 @@ function s:getRootNode(tree)
   return rootNode
 endfunction
 
+function! s:getPackageData(dict)
+  return CocRequest('java', 'workspace/executeCommand', { 'command': 'java.getPackageData', 'arguments': [a:dict] })
+endfunction
+
 function! s:getChildNodes(node)
   let node = a:node
   let data = node.getData()
   if data.kind == s:NodeKindPackageRoot
-    let res = CocAction('runCommand', 'java.getPackageData', { 'kind': data.kind, 'projectUri': s:getProjectUri(), 'rootPath': data.path, 'handlerIdentifier': data.handlerIdentifier, 'isHierarchicalView': v:true })
+    let res = s:getPackageData({ 'kind': data.kind, 'projectUri': s:getProjectUri(), 'rootPath': data.path, 'handlerIdentifier': data.handlerIdentifier, 'isHierarchicalView': v:true })
   elseif data.kind == s:NodeKindPackage
-    let res = CocAction('runCommand', 'java.getPackageData', { 'kind': data.kind, 'projectUri': s:getProjectUri(), 'path': data.name, 'handlerIdentifier': data.handlerIdentifier })
+    let res = s:getPackageData({ 'kind': data.kind, 'projectUri': s:getProjectUri(), 'path': data.name, 'handlerIdentifier': data.handlerIdentifier })
   else
-    let res = CocAction('runCommand', 'java.getPackageData', { 'kind': data.kind, 'projectUri': s:getProjectUri(), 'path': data.path })
+    let res = s:getPackageData({ 'kind': data.kind, 'projectUri': s:getProjectUri(), 'path': data.path })
   endif
 
   let childNodes = []
